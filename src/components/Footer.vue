@@ -12,11 +12,14 @@
 <style scoped>
 footer {
   text-align: center;
-  border-top: 1px solid #ccc;
+  padding: 30px 0;
+  margin-top: 20px;
+  background-color: #f4f9fd;
 }
 
 footer a {
   color: var(--main-yellow);
   text-decoration: none;
+  font-weight: bold;
 }
 </style>
