@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
-import Button from '@/components/Button.vue'
 import OwnerCard from '@/components/OwnerCard.vue'
 import OfferImage from '@/components/OfferImage.vue'
 import OfferDetails from '@/components/OfferDetails.vue'

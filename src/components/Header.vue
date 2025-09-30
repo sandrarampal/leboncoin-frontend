@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import Button from './Button.vue'
+import { inject } from 'vue'
+
+const GlobalStore = inject('GlobalStore')
 </script>
 
 <template>
@@ -26,9 +29,15 @@ import Button from './Button.vue'
           />
         </div>
       </div>
-      <div class="login-section">
-        <font-awesome-icon :icon="['far', 'user']" />
-        <p>Se connecter</p>
+      <RouterLink to="/login" style="color: black; text-decoration: none">
+        <div class="login-section">
+          <font-awesome-icon :icon="['far', 'user']" />
+          <p v-if="!GlobalStore.userToken.value">Se connecter</p>
+          <p v-else>{{ GlobalStore.username.value }}</p>
+        </div>
+      </RouterLink>
+      <div v-if="GlobalStore.userToken.value" @click="GlobalStore.handleLogout">
+        <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
       </div>
     </div>
     <div class="bottom-header container">

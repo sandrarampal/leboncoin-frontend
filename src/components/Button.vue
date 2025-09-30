@@ -20,11 +20,15 @@ const props = defineProps({
     required: false,
     default: 'white',
   },
+  onClick: {
+    type: Function,
+    required: false,
+  },
 })
 </script>
 
 <template>
-  <button :class="`btn-${props.color}`">
+  <button :class="`btn-${props.color}`" @click="props.onClick">
     <font-awesome-icon
       v-if="props.icon"
       :icon="props.icon"
