@@ -29,10 +29,13 @@ const handleLogin = async () => {
           password: password.value,
         },
       )
-      GlobalStore.username.value = response.data.user.username
-      console.log(GlobalStore.username.value)
+      // console.log(response.data)
 
-      GlobalStore.userToken.value = response.data.jwt
+      GlobalStore.updateUser(response.data.user.username, response.data.jwt)
+      console.log(GlobalStore.userInfos.value)
+
+      // GlobalStore.username.value = response.data.user.username
+      // $cookies.set('userToken', response.data.jwt)
 
       isSubmitted.value = false
       router.push({ name: 'home' })

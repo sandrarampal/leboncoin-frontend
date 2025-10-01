@@ -32,11 +32,15 @@ const GlobalStore = inject('GlobalStore')
       <RouterLink to="/login" style="color: black; text-decoration: none">
         <div class="login-section">
           <font-awesome-icon :icon="['far', 'user']" />
-          <p v-if="!GlobalStore.userToken.value">Se connecter</p>
-          <p v-else>{{ GlobalStore.username.value }}</p>
+          <p v-if="!GlobalStore.userInfos.value">Se connecter</p>
+          <p v-else>{{ GlobalStore.userInfos.value.username }}</p>
         </div>
       </RouterLink>
-      <div v-if="GlobalStore.userToken.value" @click="GlobalStore.handleLogout">
+      <div
+        v-if="GlobalStore.userInfos.value"
+        @click="GlobalStore.updateUser()"
+        style="cursor: pointer"
+      >
         <font-awesome-icon :icon="['fas', 'sign-out-alt']" />
       </div>
     </div>

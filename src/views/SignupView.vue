@@ -32,9 +32,8 @@ const handleSubmit = async () => {
           password: password.value,
         },
       )
-      GlobalStore.userToken.value = response.data.jwt
+      GlobalStore.userUpdate(response.data.user.username, response.data.jwt)
     }
-    console.log(GlobalStore.userToken.value)
 
     isSubmitted.value = false
     router.push({ name: 'home' })
