@@ -18,6 +18,7 @@ import {
   faChevronLeft,
   faChevronRight,
   faSignOutAlt,
+  faCamera,
 } from '@fortawesome/free-solid-svg-icons'
 
 const app = createApp(App)
@@ -27,11 +28,12 @@ app.use(router)
 app.use(VueCookies)
 
 const userInfos = ref($cookies.get('userInfos') || null)
-const updateUser = (username, userToken) => {
+const updateUser = (username, userToken, userId) => {
   if (username && userToken) {
     userInfos.value = {
       username: username,
       userToken: userToken,
+      userId: userId,
     }
     $cookies.set('userInfos', userInfos.value)
   } else {
@@ -54,5 +56,6 @@ library.add(
   faChevronLeft,
   faChevronRight,
   faSignOutAlt,
+  faCamera,
 )
 app.component('font-awesome-icon', FontAwesomeIcon).mount('#app')

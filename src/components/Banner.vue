@@ -1,16 +1,18 @@
 <script setup>
 import Button from '@/components/Button.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <div class="sell-banner">
     <p>C'est le moment de vendre</p>
-    <Button
-      label="Déposer une annonce"
-      color="primary"
-      :icon="['far', 'plus-square']"
-      style="font-weight: bold"
-    />
+    <RouterLink :to="{ name: 'publish' }" style="text-decoration: none">
+      <Button
+        label="Déposer une annonce"
+        color="primary"
+        :icon="['far', 'plus-square']"
+        style="font-weight: bold"
+    /></RouterLink>
     <img src="../assets/img/onde-corail.svg" alt="" class="coral-wave" />
     <img src="../assets/img/feuille-bleue.svg" alt="" class="blue-leaf" />
   </div>

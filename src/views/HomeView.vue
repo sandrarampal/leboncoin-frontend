@@ -4,7 +4,8 @@ import axios from 'axios'
 import OfferCard from '@/components/OfferCard.vue'
 import Banner from '@/components/Banner.vue'
 import Button from '@/components/Button.vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+const route = useRoute()
 
 const router = useRouter()
 
@@ -13,6 +14,8 @@ const offers = ref([])
 const props = defineProps({
   page: Number,
   title: String,
+  priceMin: Number,
+  priceMax: Number,
 })
 
 const numberOfPages = ref(1)
@@ -41,11 +44,19 @@ const goToNextPage = () => {
   queries.page = queries.page + 1
   router.push({ name: 'home', query: queries })
 }
+
+const handlePriceMin = (event) => {
+  const priceMin = event.target.value
+  const queries = { ...props }
+
+  queries.priceMin = priceMin
+  queries.page = 1
+}
 onMounted(() => {
   watchEffect(async () => {
     try {
       const { data } = await axios.get(
-        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate=pictures&populate=owner.avatar&pagination[page]=${props.page}&pagination[pageSize]=10&filters[title][$containsi]=${props.title}`,
+        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate=pictures&populate=owner.avatar&pagination[page]=${props.page}&pagination[pageSize]=10&filters[title][$containsi]=${props.title}&filters[price][$gte]=${props.priceMin}&filters[price][$lte]=${props.priceMax}`,
       )
       offers.value = data.data || []
 
@@ -60,7 +71,7 @@ onMounted(() => {
 
 <template>
   <main class="container">
-    <form class="filters">
+    <form class="filters" @submit.prevent="handlePriceMin">
       <div>
         <p>Prix</p>
         <div>
@@ -85,7 +96,7 @@ onMounted(() => {
           </label>
         </div>
       </div>
-      <Button label="Rechercher" />
+      <Button label="Rechercher" :onClick="handlePriceMin" />
     </form>
 
     <p>Des millions de petites annonces et autant d’occasions de se faire plaisir</p>

@@ -12,13 +12,17 @@ const GlobalStore = inject('GlobalStore')
       <RouterLink to="/">
         <img src="../assets/img/logo.svg" alt="" />
       </RouterLink>
+
       <div class="middle-menu">
-        <Button
-          label="Déposer une annonce"
-          color="primary"
-          :icon="['far', 'plus-square']"
-          style="font-weight: bold"
-        />
+        <RouterLink :to="{ name: 'publish' }" style="text-decoration: none">
+          <Button
+            label="Déposer une annonce"
+            color="primary"
+            :icon="['far', 'plus-square']"
+            style="font-weight: bold"
+          />
+        </RouterLink>
+
         <input type="text" placeholder="Rechercher sur leboncoin" class="search-input" />
         <div class="search-button">
           <Button

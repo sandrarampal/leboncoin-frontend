@@ -4,9 +4,10 @@ import { ref, inject } from 'vue'
 import Button from '@/components/Button.vue'
 import ConnectionCard from '@/components/ConnectionCard.vue'
 import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const email = ref('')
 const password = ref('')
@@ -29,16 +30,11 @@ const handleLogin = async () => {
           password: password.value,
         },
       )
-      // console.log(response.data)
 
-      GlobalStore.updateUser(response.data.user.username, response.data.jwt)
-      console.log(GlobalStore.userInfos.value)
-
-      // GlobalStore.username.value = response.data.user.username
-      // $cookies.set('userToken', response.data.jwt)
+      GlobalStore.updateUser(response.data.user.username, response.data.jwt, response.data.user.id)
 
       isSubmitted.value = false
-      router.push({ name: 'home' })
+      router.push({ name: route.query.redirect || 'home' })
     }
   } catch (error) {
     console.log('error>>>', error.response?.data?.error)
